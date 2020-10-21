@@ -19,7 +19,9 @@ class SongsController < ApplicationController
 
     def create
         byebug
-        @song = Song.create(name: params[:name], author: params[:author], file: params[:file])
+        @song = Song.create(name: params[:name], author: params[:author])
+        @song.file.purge
+        @song.file.attach(params[:file])
         
 
     
