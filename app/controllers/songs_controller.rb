@@ -8,13 +8,13 @@ class SongsController < ApplicationController
     def show
         @song = Song.find_by(id: params[:id])
 
-        # if @song.file.attached?
+        if @song.file.attached?
         
-        #     render json: @song.file.service_url
-        # elsif @song
-        #     render json: @song
-        # end
-        render json: rails_blob_url(@song.file)
+            render json: rails_blob_url(@song.file)
+        elsif @song
+            render json: @song
+        end
+        
 
     end
 
