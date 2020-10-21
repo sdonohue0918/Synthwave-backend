@@ -14,6 +14,7 @@ class SongsController < ApplicationController
         # elsif @song
         #     render json: @song
         # end
+        render json: rails_blob_url(@song.file)
 
     end
 
