@@ -7,7 +7,13 @@ class SongsController < ApplicationController
 
     def show
         @song = Song.find_by(id: params[:id])
-        render json: @song
+
+        # if @song.file.attached?
+        
+        #     render json: @song.file.service_url
+        # elsif @song
+        #     render json: @song
+        # end
 
     end
 
@@ -18,7 +24,7 @@ class SongsController < ApplicationController
     end
 
     def create
-        byebug
+        
         @song = Song.create(name: params[:name], author: params[:author])
         @song.file.purge
         @song.file.attach(params[:file])
