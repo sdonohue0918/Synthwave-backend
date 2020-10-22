@@ -2,12 +2,10 @@ class SongsController < ApplicationController
     def index
         @songs = Song.all
         render json: @songs
-    
     end
 
     def show
         @song = Song.find_by(id: params[:id])
-
         # if @song.file.attached?
         
         #     render json: @song.file.service_url
@@ -19,18 +17,12 @@ class SongsController < ApplicationController
 
     def new
         @song = Song.new
-
-    
     end
 
     def create
-        
         @song = Song.create(name: params[:name], author: params[:author])
         @song.file.purge
         @song.file.attach(params[:file])
-        
-
-    
     end
 
     def edit
@@ -44,7 +36,6 @@ class SongsController < ApplicationController
     def delete
         @song = Song.find_by(id: params[:id])
         @song.destroy!
-
     end
         
     private
