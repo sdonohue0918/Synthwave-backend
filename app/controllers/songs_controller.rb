@@ -10,7 +10,7 @@ class SongsController < ApplicationController
 
         if @song.file.attached?
         
-            render json: rails_blob_url(@song.file)
+            render html: @song.get_blob_url
         elsif @song
             render json: @song
         end
@@ -26,9 +26,11 @@ class SongsController < ApplicationController
 
     def create
         
-        @song = Song.create(name: params[:name], author: params[:author])
-        @song.file.purge
-        @song.file.attach(params[:file])
+        @song = Song.create(name: params[:name], author: params[:author], file: params[:file])
+        
+        if @song
+            @song.save_file
+        end
         
 
     
