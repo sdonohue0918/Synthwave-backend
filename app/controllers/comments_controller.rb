@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
     def index
         comments = Comment.all
-        render json: comments, except: [:created_at, :updated_at]
+
+        render json: comments, include: :user, except: [:updated_at, :created_at]
     end
 
     def create
@@ -29,7 +30,7 @@ class CommentsController < ApplicationController
         
     private
 
-    def Comment_params
+    def comment_params
         params.require(:comment).permit(:user, :content)
     end
     
