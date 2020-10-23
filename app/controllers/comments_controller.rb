@@ -5,8 +5,11 @@ class CommentsController < ApplicationController
         render json: comments, include: :user, except: [:updated_at, :created_at]
     end
 
+    def new
+    end
+
     def create
-        comment = Comment.create(user: params[:user], content: params[:content])
+        comment = Comment.create(comment_params)
 
         render json: comment
     end
