@@ -20,10 +20,13 @@ class SongsController < ApplicationController
     end
 
     def create
+        
         @song = Song.create(name: params[:name], author: params[:author], file: params[:file])
         if @song
             @song.save_file
         end
+
+        render json: @song
     end
 
     def edit
@@ -34,9 +37,16 @@ class SongsController < ApplicationController
         @song = Song.update(song_params)
     end
 
-    def delete
+    def destroy
+        
         @song = Song.find_by(id: params[:id])
+        @song.delete_file
         @song.destroy!
+
+        render json: @song
+         
+
+        
     end
         
     private
