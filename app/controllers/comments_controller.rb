@@ -9,7 +9,8 @@ class CommentsController < ApplicationController
     end
 
     def create
-        comment = Comment.create(comment_params)
+        user = User.find_or_create_by(name: params[:user])
+        comment = Comment.create(user: user, content: params[:content])
 
         render json: comment
     end
@@ -34,7 +35,7 @@ class CommentsController < ApplicationController
     private
 
     def comment_params
-        params.require(:comment).permit(:user, :content)
+        params.require(:comment).permit!
     end
     
 end

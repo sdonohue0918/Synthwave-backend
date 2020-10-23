@@ -5,8 +5,11 @@ class UsersController < ApplicationController
         render json: users, except: [:updated_at, :created_at]
     end
 
+    def new
+    end
+
     def create
-        user = User.create(name: params[:name])
+        user = User.create(user_params)
 
         render json: user
     end
