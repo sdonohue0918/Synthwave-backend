@@ -8,11 +8,7 @@ class SongsController < ApplicationController
     def show
         @song = Song.find_by(id: params[:id])
 
-        if @song.file.attached?
-            render html: @song.get_blob_url
-        elsif @song
-            render json: @song
-        end
+        render json: @song
     end
 
     def new
@@ -22,7 +18,7 @@ class SongsController < ApplicationController
     def create
         @song = Song.create(name: params[:name], author: params[:author], file: params[:file])
         if @song
-            @song.save_file
+            @song.attach.(params[:file])
         end
 
         render json: @song
@@ -38,7 +34,6 @@ class SongsController < ApplicationController
 
     def destroy
         @song = Song.find_by(id: params[:id])
-        @song.delete_file
         @song.destroy!
         render json: @song
     end
