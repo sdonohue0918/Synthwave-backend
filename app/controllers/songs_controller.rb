@@ -18,7 +18,7 @@ class SongsController < ApplicationController
     def create
         @song = Song.create(name: params[:name], author: params[:author], file: params[:file])
         if @song
-            @song.attach.(params[:file])
+            @song.file.attach.(params[:file])
         end
 
         render json: @song
@@ -28,9 +28,9 @@ class SongsController < ApplicationController
         @song = Song.find_by(id: params[:id])
     end
 
-    def update
-        @song = Song.update(song_params)
-    end
+    # def update
+    #     @song = Song.update(song_params)
+    # end
 
     def destroy
         @song = Song.find_by(id: params[:id])
